@@ -32,14 +32,14 @@ router.put('/', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-    const id = req.params.id;
+    const id = Number.parseInt(req.params.id);
     const found = await service.deleteProfessionalData(id);
     if (!found) return res.status(404).json({ message: 'Not found' });
     res.json(found);
 });
 
 router.get('/:id', async (req, res) => {
-    const id = req.params.id;
+    const id = Number.parseInt(req.params.id);
     const found = await service.getProfessionalData(id);
     if (!found) return res.status(404).json({ message: 'Not found' });
     res.json(found);
