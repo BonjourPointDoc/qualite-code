@@ -4,6 +4,8 @@ import swaggerUi from 'swagger-ui-express';
 import addressController from './adapters/driving/addressController';
 import path from 'path';
 import * as fs from "node:fs";
+import civilStatusController from "./adapters/driving/civilStatusController";
+import professionalDataController from "./adapters/driving/professionalDataController";
 
 const app = express();
 app.use(express.json());

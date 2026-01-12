@@ -19,4 +19,14 @@ export class InMemoryProfessionalDataRepo implements ProfessionalDataRepositoryP
         store.push(newCivilStatus);
         return newCivilStatus;
     }
+
+    async update(professionalData: ProfessionalData): Promise<ProfessionalData> {
+        const updatedProfessionalData: ProfessionalData = {...professionalData};
+        store.push(updatedProfessionalData);
+        return updatedProfessionalData;
+    }
+
+    async delete(id: number): Promise<ProfessionalData | null> {
+        return null;
+    }
 }
