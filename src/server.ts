@@ -14,6 +14,8 @@ const swaggerDocument = YAML.parse(file)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/addresses', addressController);
+app.use('/civil-status', civilStatusController);
+app.use('/pro-data', professionalDataController);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
