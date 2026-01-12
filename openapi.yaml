@@ -1,347 +1,84 @@
 openapi: 3.0.0
-servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/imtminesals/TPBonnesPratiquesAPI/1.0.0
 info:
-  description: API TP Bonnes Pratiques de code
-  version: "1.0.0"
-  title: API TP Bonnes Pratiques
-  contact:
-    email: louis.gallo@etu.mines-ales.fr
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-tags:
-  - name: Civil Status
-    description: Informations relatives aux personnes
-  - name: Professional Data
-    description: Informations professionnelles sur les personnes
-  - name: Aggregat
-    description: Aggregat de données
+  title: AddressApp API
+  version: 0.1.0
 paths:
-  /civil-status/{id}:
+  /addresses:
     get:
-      tags:
-        - Civil Status
-      summary: searches civil-status
-      operationId: searchCivilStatus
-      description: |
-        Return civil status matching the id path parameter.
-      parameters:
-        - in: path
-          name: id
-          description: id of the desired civil status
-          required: true
-          schema:
-            type: number
+      summary: List addresses
       responses:
         '200':
-          description: return results found
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CivilStatus'
-        '400':
-          description: object not found
-        '500':
-          description: internal server error
-    delete:
-      tags:
-        - Civil Status
-      summary: adds a civil status
-      operationId: deleteCivilStatus
-      description: Adds a civil status to the database
-      parameters:
-        - in: path
-          name: id
-          description: id of the desired civil status to delete
-          required: true
-          schema:
-            type: number
-      responses:
-        '201':
-          description: civil status deleted
-        '400':
-          description: 'invalid parameter'
-        '404':
-          description: the civil status does not exists
-  /civil-status:
-    get:
-      tags:
-        - Civil Status
-      summary: return every civil-status
-      operationId: returnCivilStatus
-      description: |
-        Return every civil status present in database
-      responses:
-        '200':
-          description: return results found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CivilStatus'
-        '500':
-          description: internal server error
+                  $ref: '#/components/schemas/Address'
     post:
-      tags:
-        - Civil Status
-      summary: adds a civil status
-      operationId: addCivilStatus
-      description: Adds a civil status to the database
-      responses:
-        '201':
-          description: civil status created
-        '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing civil status already exists
+      summary: Create address
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CivilStatus'
-        description: Civil status to add
-    put:
-      tags:
-        - Civil Status
-      summary: updates a civil status
-      operationId: updateCivilStatus
-      description: updates a civil status in the database
+              $ref: '#/components/schemas/AddressInput'
       responses:
         '201':
-          description: civil status updated
-        '400':
-          description: 'invalid input, object invalid'
-        '404':
-          description: the civil status does not exists
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CivilStatus'
-        description: Civil status to update
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
 
-  /pro-data/{id}:
+  /addresses/{id}:
     get:
-      tags:
-        - Professional Data
-      summary: searches professional data
-      operationId: searchProfessionalData
-      description: |
-        Return professional data matching the id path parameter.
+      summary: Get address by id
       parameters:
-        - in: path
-          name: id
-          description: id of the desired professional data
+        - name: id
+          in: path
           required: true
           schema:
-            type: number
+            type: string
       responses:
         '200':
-          description: return results found
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ProfessionalData'
-        '400':
-          description: object not found
-        '500':
-          description: internal server error
-    delete:
-      tags:
-        - Professional Data
-      summary: adds a professional data
-      operationId: deleteProfessionalData
-      description: Adds a professional data to the database
-      parameters:
-        - in: path
-          name: id
-          description: id of the desired professional data to delete
-          required: true
-          schema:
-            type: number
-      responses:
-        '201':
-          description: professional data deleted
-        '400':
-          description: 'invalid parameter'
+                $ref: '#/components/schemas/Address'
         '404':
-          description: the professional data does not exists
-  /pro-data:
-    get:
-      tags:
-        - Professional Data
-      summary: return every professional data
-      operationId: returnProfessionnalData
-      description: |
-        Return every professional data status present in database
-      responses:
-        '200':
-          description: return results found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ProfessionalData'
-        '500':
-          description: internal server error
-    post:
-      tags:
-        - Professional Data
-      summary: adds a professional data
-      operationId: addProfessionalData
-      description: Adds a professional data to the database
-      responses:
-        '201':
-          description: professional data created
-        '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing professional data already exists
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProfessionalData'
-        description: Professional data to add
-    put:
-      tags:
-        - Professional Data
-      summary: updates a professional data
-      operationId: updateProfessionalData
-      description: updates a professional data in the database
-      responses:
-        '201':
-          description: professional data updated
-        '400':
-          description: 'invalid input, object invalid'
-        '404':
-          description: the professional data does not exists
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProfessionalData'
-        description: Professional data to update
-  /pro-data-by-civil-status/{id}:
-    get:
-      tags:
-        - Aggregat
-      summary: get professionnal data with the civil status id
-      operationId: getProDataCivilStatus
-      description: get professionnal data with the civil status id
-      parameters:
-        - in: path
-          name: id
-          description: id of the civil status to get professional data
-          required: true
-          schema:
-            type: number
-      responses:
-        '200':
-          description: return results found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ProfessionalData'
-        '500':
-          description: internal server error
-  /how-much/{id}:
-    get:
-      tags:
-        - Aggregat
-      summary: get a person worth
-      operationId: getMarried
-      description: tells how much a person will made in the rest of his/her carieer
-      parameters:
-        - in: path
-          name: id
-          description: id of the civil status to get professional data
-          required: true
-          schema:
-            type: number
-      responses:
-        '200':
-          description: how much the person will make
-        '500':
-          description: internal server error
+          description: Not Found
+
 components:
   schemas:
-    CivilStatus:
+    Address:
       type: object
-      required:
-        - id
-        - last_name
-        - first_name
-        - birthplace
-        - birthday
       properties:
         id:
-          type: number
-          example: 0
-        last_name:
           type: string
-          example: Doe
-        first_name:
+        street:
           type: string
-          example: John
-        birthplace:
+        city:
           type: string
-          example: 'Tours'
-        birthday:
+        zip:
           type: string
-          format: date
-          example: '12/01/2026'
-    ProfessionalData:
       required:
         - id
-        - civil_status_id
-        - situation
-        - company
-        - salary
-        - contract
-        - hours_per_day
-        - overtime
-        - paid_overtime
-      properties:
-        id:
-          type: number
-          example: 0
-        civil_status_id:
-          type: number
-          example: 0
-        situation:
-          type: string
-          example: Manager
-        company:
-          type: string
-          example: Capgemini Engineering
-        salary:
-          type: number
-          example: 5000
-        contract:
-          type: string
-          example: internship
-        hours_per_day:
-          type: number
-          example: 2
-          default: 7
-        overtime:
-          type: number
-          example: 35
-          default: 0
-        paid_overtime:
-          type: number
-          example: 0
-          default: 0
+        - street
+        - city
+        - zip
+
+    AddressInput:
       type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+      required:
+        - street
+        - city
+        - zip
