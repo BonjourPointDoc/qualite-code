@@ -51,9 +51,9 @@ paths:
     delete:
       tags:
         - Civil Status
-      summary: adds a civil status
+      summary: deletes a civil status
       operationId: deleteCivilStatus
-      description: Adds a civil status to the database
+      description: deletes a civil status to the database
       parameters:
         - in: path
           name: id
@@ -157,9 +157,9 @@ paths:
     delete:
       tags:
         - Professional Data
-      summary: adds a professional data
+      summary: deletes a professional data
       operationId: deleteProfessionalData
-      description: Adds a professional data to the database
+      description: deletes a professional data to the database
       parameters:
         - in: path
           name: id
