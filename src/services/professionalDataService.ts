@@ -13,7 +13,15 @@ export class ProfessionalDataService implements ProfessionalDataPort {
         return this.repo.findById(id);
     }
 
-    async createProfessionalData(input: ProfessionalData): Promise<ProfessionalData> {
+    async createProfessionalData(input: Omit<ProfessionalData, 'id'>): Promise<ProfessionalData> {
         return this.repo.save(input);
+    }
+
+    async updateProfessionalData(input: ProfessionalData): Promise<ProfessionalData> {
+        return this.repo.update(input);
+    }
+
+    async deleteProfessionalData(id: number): Promise<ProfessionalData | null> {
+        return this.repo.delete(id);
     }
 }
