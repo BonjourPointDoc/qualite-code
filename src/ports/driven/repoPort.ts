@@ -15,4 +15,5 @@ export interface ProfessionalDataRepositoryPort {
   save(professional_data: Omit<ProfessionalData, 'id'>): Promise<ProfessionalData>;
   update(professional_data: ProfessionalData): Promise<ProfessionalData | null>;
   delete(id: number): Promise<ProfessionalData | null>;
+  findByCivilStatusId(id: number): Promise<ProfessionalData | null>;
 }

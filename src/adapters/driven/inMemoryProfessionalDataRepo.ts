@@ -38,4 +38,8 @@ export class InMemoryProfessionalDataRepo implements ProfessionalDataRepositoryP
         }
         return null;
     }
+
+    async findByCivilStatusId(id: number): Promise<ProfessionalData | null> {
+        return null;
+    }
 }
