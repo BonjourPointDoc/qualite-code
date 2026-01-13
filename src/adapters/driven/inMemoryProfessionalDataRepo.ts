@@ -15,18 +15,27 @@ export class InMemoryProfessionalDataRepo implements ProfessionalDataRepositoryP
     }
 
     async save(civilStatus: Omit<ProfessionalData, 'id'>): Promise<ProfessionalData> {
-        const newCivilStatus: ProfessionalData = { id: randomInt(1, 100), ...civilStatus };
+        const newCivilStatus: ProfessionalData = { id: store.length, ...civilStatus };
         store.push(newCivilStatus);
         return newCivilStatus;
     }
 
-    async update(professionalData: ProfessionalData): Promise<ProfessionalData> {
-        const updatedProfessionalData: ProfessionalData = {...professionalData};
-        store.push(updatedProfessionalData);
-        return updatedProfessionalData;
+    async update(professionalData: ProfessionalData): Promise<ProfessionalData | null> {
+        const foundIndex = store.findIndex(x => x.id === professionalData.id);
+        if (foundIndex > -1) {
+            store[foundIndex] = professionalData;
+            return professionalData;
+        }
+        return null;
     }
 
     async delete(id: number): Promise<ProfessionalData | null> {
+        const foundIndex = store.findIndex(x => x.id === id);
+        if (foundIndex > -1) {
+            let deletedProfessionalData: ProfessionalData = store[foundIndex];
+            store.splice(foundIndex, 1);
+            return deletedProfessionalData;
+        }
         return null;
     }
 }
