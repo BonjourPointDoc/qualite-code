@@ -1,5 +1,5 @@
 import express from 'express';
-import { InMemoryCivilStatusRepo } from '../driven/inMemoryCivilStatusRepo';
+import InMemoryCivilStatusRepo from '../driven/inMemoryCivilStatusRepo';
 import { CivilStatusService } from '../../services/civilStatusService';
 import { CivilStatus } from "../../domain/civilStatus";
 

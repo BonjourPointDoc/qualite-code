@@ -6,7 +6,7 @@ import civilStatusController from "../driving/civilStatusController";
 
 const store: CivilStatus[] = [];
 
-export class InMemoryCivilStatusRepo implements CivilStatusRepositoryPort {
+class InMemoryCivilStatusRepo implements CivilStatusRepositoryPort {
     async findAll(): Promise<CivilStatus[]> {
         return store.slice();
     }
@@ -17,18 +17,28 @@ export class InMemoryCivilStatusRepo implements CivilStatusRepositoryPort {
     }
 
     async save(civilStatus: Omit<CivilStatus, 'id'>): Promise<CivilStatus> {
-        const newCivilStatus: CivilStatus = { id: randomInt(1, 100), ...civilStatus };
-        store.push(newCivilStatus);
+        const newCivilStatus: CivilStatus = { id: store.length, ...civilStatus };
+        store.push(civilStatus);
         return newCivilStatus;
     }
 
-    async update(civilStatus: CivilStatus): Promise<CivilStatus> {
-        const updatedCivilStatus: CivilStatus = {...civilStatus}
-        store.push(civilStatus);
-        return updatedCivilStatus;
+    async update(newCivilStatus: CivilStatus): Promise<CivilStatus | null> {
+        const foundIndex = store.findIndex(x => x.id == newCivilStatus.id);
+        if(foundIndex > -1) {
+            store[foundIndex] = newCivilStatus;
+            return newCivilStatus;
+        }
+        return null
     }
 
     async delete(id: number): Promise<CivilStatus | null> {
-        return null;
+        const foundIndex = store.findIndex(x => x.id == id);
+        if(foundIndex > -1) {
+            let deletedCivilStatus: CivilStatus = store[foundIndex];
+            store.splice(foundIndex, 1);
+            return deletedCivilStatus;
+        }
+        return null
     }
 }
+export default InMemoryCivilStatusRepo
