@@ -26,8 +26,8 @@ export class CivilStatusService implements CivilStatusPort {
         return this.repo.delete(id);
     }
 
-    async getWorthOfCivilStatus(id: number): Promise<ProfessionalData | null> {
-        // return this.repo.findWorthOfCivilStatus(id);
-        return null;
-    }
+    // async getWorthOfCivilStatus(id: number): Promise<ProfessionalData | null> {
+    //     // return this.repo.findWorthOfCivilStatus(id);
+    //     return null;
+    // }
 }

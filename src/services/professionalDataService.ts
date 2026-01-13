@@ -25,7 +25,7 @@ export class ProfessionalDataService implements ProfessionalDataPort {
         return this.repo.delete(id);
     }
 
-    async getProfessionalDataByCivilStatus(id: number): Promise<ProfessionalData | null> {
-        return this.repo.findByCivilStatusId(id);
-    }
+    // async getProfessionalDataByCivilStatus(id: number): Promise<ProfessionalData | null> {
+    //     return this.repo.findByCivilStatusId(id);
+    // }
 }
