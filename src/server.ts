@@ -1,7 +1,6 @@
 import express from 'express';
 import * as YAML from 'yaml';
 import swaggerUi from 'swagger-ui-express';
-import addressController from './adapters/driving/addressController';
 import path from 'path';
 import * as fs from "node:fs";
 import civilStatusController from "./adapters/driving/civilStatusController";
@@ -15,7 +14,6 @@ const swaggerDocument = YAML.parse(file)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/addresses', addressController);
 app.use('/civil-status', civilStatusController);
 app.use('/pro-data', professionalDataController);
 

@@ -1,12 +1,5 @@
-import { Address } from '../../domain/address';
 import { CivilStatus } from '../../domain/civilStatus';
 import { ProfessionalData } from '../../domain/professionalData';
-
-export interface AddressRepositoryPort {
-  findAll(): Promise<Address[]>;
-  findById(id: string): Promise<Address | null>;
-  save(address: Omit<Address, 'id'>): Promise<Address>;
-}
 
 export interface CivilStatusRepositoryPort {
   findAll(): Promise<CivilStatus[]>;
