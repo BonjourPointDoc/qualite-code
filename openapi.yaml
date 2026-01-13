@@ -17,8 +17,6 @@ tags:
     description: Informations relatives aux personnes
   - name: Professional Data
     description: Informations professionnelles sur les personnes
-  - name: Aggregat
-    description: Aggregat de données
 paths:
   /civil-status/{id}:
     get:
@@ -231,10 +229,10 @@ paths:
             schema:
               $ref: '#/components/schemas/ProfessionalData'
         description: Professional data to update
-  /pro-data-by-civil-status/{id}:
+  /pro-data/civil-status/{id}:
     get:
       tags:
-        - Aggregat
+        - Professional Data
       summary: get professionnal data with the civil status id
       operationId: getProDataCivilStatus
       description: get professionnal data with the civil status id
@@ -256,10 +254,10 @@ paths:
                   $ref: '#/components/schemas/ProfessionalData'
         '500':
           description: internal server error
-  /how-much/{id}:
+  /civil-status/how-much/{id}:
     get:
       tags:
-        - Aggregat
+        - Civil Status
       summary: get a person worth
       operationId: getMarried
       description: tells how much a person will made in the rest of his/her carieer

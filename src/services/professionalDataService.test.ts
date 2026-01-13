@@ -8,6 +8,7 @@ describe('ProfessionalDataService', () => {
         save: jest.Mock<Promise<ProfessionalData>, [Omit<ProfessionalData, 'id'>]>;
         update: jest.Mock<Promise<ProfessionalData>, [ProfessionalData]>;
         delete: jest.Mock<Promise<ProfessionalData | null>, [number]>;
+        findByCivilStatusId: jest.Mock<Promise<ProfessionalData | null>, [number]>;
     };
     let service: ProfessionalDataService;
 
@@ -17,7 +18,8 @@ describe('ProfessionalDataService', () => {
             findById: jest.fn(),
             save: jest.fn(),
             update: jest.fn(),
-            delete: jest.fn()
+            delete: jest.fn(),
+            findByCivilStatusId: jest.fn()
         };
         service = new ProfessionalDataService(mockRepo);
     });
