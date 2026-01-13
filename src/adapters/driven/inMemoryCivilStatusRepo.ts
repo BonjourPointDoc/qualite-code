@@ -1,8 +1,5 @@
 import { CivilStatusRepositoryPort} from '../../ports/driven/repoPort';
 import {CivilStatus} from "../../domain/civilStatus";
-import {randomInt} from "node:crypto";
-import {ProfessionalData} from "../../domain/professionalData";
-import civilStatusController from "../driving/civilStatusController";
 
 const store: CivilStatus[] = [];
 
@@ -37,6 +34,17 @@ class InMemoryCivilStatusRepo implements CivilStatusRepositoryPort {
             let deletedCivilStatus: CivilStatus = store[foundIndex];
             store.splice(foundIndex, 1);
             return deletedCivilStatus;
+        }
+        return null
+    }
+
+    async findWorthOfCivilStatus(id: number): Promise<number | null> {
+        const found = store.find((s) => s.id === id);
+        if(found !== undefined){
+            let ageDifMs = Date.now() - found.birthday.getTime();
+            let ageDate = new Date(ageDifMs);
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            return age;
         }
         return null
     }
