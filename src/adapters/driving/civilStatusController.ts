@@ -45,4 +45,11 @@ router.get('/:id', async (req, res) => {
     res.json(found);
 });
 
+router.get('/how-much/:id', async (req, res) => {
+    const id = Number.parseInt(req.params.id);
+    const found = await service.getWorthOfCivilStatus(id);
+    if (!found) return res.status(404).json({ message: 'Not found' });
+    res.json(found);
+});
+
 export default router;
