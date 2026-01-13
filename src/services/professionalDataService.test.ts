@@ -1,6 +1,3 @@
-import { AddressService } from './addressService';
-import { Address } from '../domain/address';
-
 import { ProfessionalDataService } from './professionalDataService';
 import {ProfessionalData } from "../domain/professionalData";
 
