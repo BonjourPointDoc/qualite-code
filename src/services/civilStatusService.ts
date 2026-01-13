@@ -1,7 +1,6 @@
 import {CivilStatusPort} from "../ports/driving/civilStatusPort";
 import {CivilStatusRepositoryPort} from "../ports/driven/repoPort";
 import {CivilStatus} from "../domain/civilStatus";
-import {ProfessionalData} from "../domain/professionalData";
 
 export class CivilStatusService implements CivilStatusPort {
     constructor(private repo: CivilStatusRepositoryPort) {}
