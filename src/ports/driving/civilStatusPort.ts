@@ -6,5 +6,4 @@ export interface CivilStatusPort {
     createCivilStatus(input: Omit<CivilStatus, 'id'>): Promise<CivilStatus>;
     updateCivilStatus(input: CivilStatus): Promise<CivilStatus | null>;
     deleteCivilStatus(id: number): Promise<CivilStatus | null>;
-
 }

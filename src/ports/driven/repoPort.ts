@@ -7,7 +7,6 @@ export interface CivilStatusRepositoryPort {
   save(civil_status: Omit<CivilStatus, 'id'>): Promise<CivilStatus>;
   update(civil_status: CivilStatus): Promise<CivilStatus | null>;
   delete(id: number): Promise<CivilStatus | null>;
-  findWorthOfCivilStatus(id:number): Promise<number | null>;
 }
 
 export interface ProfessionalDataRepositoryPort {
