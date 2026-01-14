@@ -1,5 +1,5 @@
 import express from 'express';
-import { ProfessionalDataRepo } from '../driven/professionalStatusRepo';
+import { ProfessionalDataRepo } from '../driven/professionalDataRepo';
 import { ProfessionalDataService } from '../../services/professionalDataService';
 import { ProfessionalData } from "../../domain/professionalData";
 

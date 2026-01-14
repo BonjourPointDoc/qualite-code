@@ -19,8 +19,8 @@ describe ('ProfessionalDataController', () => {
 
     describe('Get /pro-data', () => {
         it('should return a list of professional data', async () => {
-            const sample: ProfessionalData[] = [new ProfessionalData(0, "Engineer", "Capgemini", "2300", "CDI", 7, 0, 0),
-                                                new ProfessionalData(0, "Taxi Driver", "Uber", "1500", "CDI", 7, 0, 0)]
+            const sample: ProfessionalData[] = [new ProfessionalData(0, "Engineer", "Capgemini", 2300, "CDI", 7, 0, 0),
+                                                new ProfessionalData(0, "Taxi Driver", "Uber", 1500, "CDI", 7, 0, 0)]
             mockService.prototype.listProfessionalData.mockResolvedValue(sample);
 
             const res = await request(app).get('/pro-data');
@@ -32,8 +32,8 @@ describe ('ProfessionalDataController', () => {
 
     describe('GET /pro-data/:id', () => {
         it('should return professional data if found', async () => {
-            const sample: ProfessionalData[] = [new ProfessionalData(0, "Engineer", "Capgemini", "2300", "CDI", 7, 0, 0, 0),
-                                                new ProfessionalData(0, "Taxi Driver", "Uber", "1500", "CDI", 7, 0, 0, 1)]
+            const sample: ProfessionalData[] = [new ProfessionalData(0, "Engineer", "Capgemini", 2300, "CDI", 7, 0, 0, 0),
+                                                new ProfessionalData(0, "Taxi Driver", "Uber", 1500, "CDI", 7, 0, 0, 1)]
             mockService.prototype.getProfessionalData.mockResolvedValue(sample[0]);
 
             const res = await request(app).get('/pro-data/0');
@@ -53,7 +53,7 @@ describe ('ProfessionalDataController', () => {
 
     describe('POST /pro-data', () => {
        it('should create professional data', async () => {
-           const input = new ProfessionalData(0, "Engineer", "Capgemini", "2300", "CDI", 7, 0, 0, 0);
+           const input = new ProfessionalData(0, "Engineer", "Capgemini", 2300, "CDI", 7, 0, 0, 0);
            mockService.prototype.createProfessionalData.mockResolvedValue(input);
            const res = await request(app).post('/pro-data').send(input);
 

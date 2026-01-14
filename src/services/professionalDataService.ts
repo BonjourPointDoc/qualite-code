@@ -21,7 +21,7 @@ export class ProfessionalDataService implements ProfessionalDataPort {
         return this.repo.update(input);
     }
 
-    async deleteProfessionalData(id: number): Promise<ProfessionalData | null> {
+    async deleteProfessionalData(id: number): Promise<number | null> {
         return this.repo.delete(id);
     }
 
