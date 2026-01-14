@@ -1,11 +1,11 @@
 import express from 'express';
-import InMemoryCivilStatusRepo from '../driven/inMemoryCivilStatusRepo';
+import CivilStatusRepo from '../driven/civilStatusRepo';
 import { CivilStatusService } from '../../services/civilStatusService';
 import { CivilStatus } from "../../domain/civilStatus";
 
 const router = express.Router();
 
-const repo = new InMemoryCivilStatusRepo();
+const repo = new CivilStatusRepo();
 const service = new CivilStatusService(repo);
 
 router.get('/', async (req, res) => {
