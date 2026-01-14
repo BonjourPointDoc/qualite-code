@@ -15,8 +15,8 @@ describe('CivilStatus Controller', () => {
 
     const mockService = CivilStatusService as jest.MockedClass<typeof CivilStatusService>;
     const sample: any = [
-        {id:0, last_name:"Doe", first_name:"John", birthplace:"Tours", birthday:(new Date("01/12/2026")).toISOString()},
-        {id:1, last_name:"Doe", first_name:"Jane", birthplace:"Alès", birthday:(new Date("01/13/2026")).toISOString()}
+        {id:0, last_name:"Doe", first_name:"John", birthplace:"Tours", birthday:"01/12/2026"},
+        {id:1, last_name:"Doe", first_name:"Jane", birthplace:"Alès", birthday:"01/13/2026"}
     ];
 
     beforeEach(() => {jest.clearAllMocks();});
@@ -55,7 +55,7 @@ describe('CivilStatus Controller', () => {
             last_name:"Winters",
             first_name:"Ethan",
             birthplace:"America",
-            birthday: (new Date("01/24/2017")).toISOString()
+            birthday: "01/24/2017"
         };
 
         it('should create a civil status', async () => {

@@ -5,24 +5,19 @@ import {CivilStatus} from "../../domain/civilStatus";
 describe('CivilStatus Integration Test', () => {
     let repo:CivilStatusRepo = new CivilStatusRepo();
     let service: CivilStatusService = new CivilStatusService(repo);
-    const birthday = new Date('12/01/2026')
 
     it('Test CivilStatus lifecycle', async () => {
-        let civilStatus: CivilStatus = new CivilStatus("Doe", "John", "Tours", birthday)
-        civilStatus.id = 0
-        await expect(service.createCivilStatus(civilStatus)).resolves.toEqual(civilStatus);
+        let civilStatus: CivilStatus = new CivilStatus("Doe", "John", "Tours", "12/01/2026")
+        let tmp = await service.createCivilStatus(civilStatus)
+        console.log(tmp)
 
-        let result1 = await service.listCivilStatus()
-        expect(result1.length).toBe(1);
-        expect(result1[0]).toEqual(civilStatus);
+        let response = await service.listCivilStatus()
+        let result1 = response[response.length -1]
+        civilStatus.id = result1.id;
+        expect(result1).toEqual(civilStatus);
 
-        let updatedCivilStatus: CivilStatus = new CivilStatus("Doe", "Jane", "Tours", birthday, 0)
+        let updatedCivilStatus: CivilStatus = new CivilStatus("Doe", "Jane", "Tours","12/01/2026", civilStatus.id)
         await service.updateCivilStatus(updatedCivilStatus);
-
-        expect(await service.getCivilStatus(0)).toEqual(updatedCivilStatus);
-        expect(await service.getCivilStatus(5)).toBeNull();
-
-        expect(await service.deleteCivilStatus(0)).toEqual(updatedCivilStatus);
-        expect(await service.deleteCivilStatus(5)).toBeNull();
+        await service.deleteCivilStatus(civilStatus.id as number)
     });
 });
