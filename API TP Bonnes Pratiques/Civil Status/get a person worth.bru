@@ -1,0 +1,78 @@
+meta {
+  name: get a person worth
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/civil-status/how-much/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+tests {
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+   
+}
+
+example {
+  name: 200 Response
+  description: how much the person will make
+  
+  request: {
+    url: {{baseUrl}}/civil-status/how-much/:id
+    method: GET
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 500 Response
+  description: internal server error
+  
+  request: {
+    url: {{baseUrl}}/civil-status/how-much/:id
+    method: GET
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 500
+      text: Internal Server Error
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

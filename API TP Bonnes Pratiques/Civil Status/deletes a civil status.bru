@@ -1,0 +1,113 @@
+meta {
+  name: deletes a civil status
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/civil-status/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 0
+}
+
+tests {
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("result should be an array", function (){
+    expect(res.getBody()).to.be.an("object");
+  });
+   
+  test("should not return server error", function () {
+    expect(res.getStatus()).to.not.equal(500);
+  });
+}
+
+example {
+  name: 201 Response
+  description: civil status deleted
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: DELETE
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: invalid parameter
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: DELETE
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: the civil status does not exists
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: DELETE
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
