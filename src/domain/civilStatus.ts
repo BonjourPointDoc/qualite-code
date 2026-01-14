@@ -3,9 +3,9 @@ export class CivilStatus {
     last_name: string;
     first_name: string;
     birthplace: string;
-    birthday: Date;
+    birthday: string;
 
-    constructor(last_name: string, first_name: string, birthplace: string, birthday: Date, id?: number) {
+    constructor(last_name: string, first_name: string, birthplace: string, birthday: string, id?: number) {
         this.id = id;
         this.last_name = last_name;
         this.first_name = first_name;

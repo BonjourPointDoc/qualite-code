@@ -39,15 +39,11 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    console.log("1")
     const id = Number.parseInt(req.params.id);
-    console.log("2")
     const found = await service.getProfessionalData(id);
-    console.log("3")
     if (found === null) {
         return res.status(404).json({message: 'Not found'});
     }
-    console.log("4")
     res.json(found);
 });
 

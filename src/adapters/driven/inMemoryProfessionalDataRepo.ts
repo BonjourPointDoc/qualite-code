@@ -32,7 +32,6 @@ export class InMemoryProfessionalDataRepo implements ProfessionalDataRepositoryP
     }
 
     async update(professionalData: ProfessionalData): Promise<ProfessionalData | null> {
-        console.log(professionalData);
         const foundIndex = store.findIndex(x => x.id === professionalData.id);
         if (foundIndex > -1) {
             store[foundIndex] = professionalData;

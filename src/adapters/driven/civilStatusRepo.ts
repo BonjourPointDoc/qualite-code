@@ -1,5 +1,6 @@
 import { CivilStatusRepositoryPort} from '../../ports/driven/repoPort';
 import {CivilStatus} from "../../domain/civilStatus";
+import {RunResult} from "sqlite3";
 const db = require('../../../db');
 
 class CivilStatusRepo implements CivilStatusRepositoryPort {
@@ -26,23 +27,32 @@ class CivilStatusRepo implements CivilStatusRepositoryPort {
     }
 
     async save(civilStatus: Omit<CivilStatus, 'id'>): Promise<CivilStatus> {
+        let returnValue:CivilStatus = civilStatus;
         return new Promise((resolve, reject) => {
-            db.run('INSERT INTO CivilStatus (last_name, first_name, birthplace, birthday) VALUES (?, ?, ?, ?)',
-                civilStatus.last_name,
-                civilStatus.first_name,
-                civilStatus.birthplace,
-                civilStatus.birthday, (err:any, rows: any) => {
-                if(err)
-                    reject(err);
-                else
-                    resolve(rows);
-            });
+            db.run(
+                `INSERT INTO CivilStatus (last_name, first_name, birthplace, birthday)
+                 VALUES (?, ?, ?, ?)`,
+                [
+                    civilStatus.last_name,
+                    civilStatus.first_name,
+                    civilStatus.birthplace,
+                    civilStatus.birthday
+                ],
+                function (this: RunResult, err: Error | null) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        returnValue.id = this.lastID
+                        resolve(returnValue);
+                    }
+                }
+            );
         });
     }
 
     async update(newCivilStatus: CivilStatus): Promise<CivilStatus | null> {
         return new Promise((resolve, reject) => {
-            db.run('UPDATE agentsOfShield SET last_name = (?), first_name = (?), birthplace = (?), birthday = (?) where id = (?)',
+            db.run('UPDATE CivilStatus SET last_name = (?), first_name = (?), birthplace = (?), birthday = (?) where id = (?)',
                 [newCivilStatus.last_name, newCivilStatus.first_name, newCivilStatus.birthplace, newCivilStatus.birthday, newCivilStatus.id],
                 (err:any, rows:any) => {
                 if(err)

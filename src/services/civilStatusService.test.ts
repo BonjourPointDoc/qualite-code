@@ -24,8 +24,8 @@ describe('CivilStatusService', () => {
 
     it('listCivilStatus retourne la liste fournie par le repo', async () => {
         const sample: CivilStatus[] = [
-            new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026")),
-            new CivilStatus("Doe", "Jane", "Alès", new Date("13/01/2026")),
+            new CivilStatus("Doe", "John", "Tours", "12/01/2026"),
+            new CivilStatus("Doe", "Jane", "Alès", "13/01/2026"),
         ];
         mockRepo.findAll.mockResolvedValue(sample);
         await expect(service.listCivilStatus()).resolves.toEqual(sample);
@@ -33,7 +33,7 @@ describe('CivilStatusService', () => {
     });
 
     it('getCivilStatus retourne l\'état civil quand il existe', async () => {
-        const testCivilStatus = new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026"), 0);
+        const testCivilStatus = new CivilStatus("Doe", "John", "Tours","12/01/2026", 0);
         mockRepo.findById.mockResolvedValue(testCivilStatus);
         await expect(service.getCivilStatus(0)).resolves.toEqual(testCivilStatus);
         expect(mockRepo.findById).toHaveBeenCalledWith(0);
@@ -46,7 +46,7 @@ describe('CivilStatusService', () => {
     });
 
     it('createCivilStatus appelle save et retourne l\'état civil créé', async () => {
-        const input = new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026"));
+        const input = new CivilStatus("Doe", "John", "Tours", "12/01/2026");
         const { last_name, first_name, birthplace, birthday } = input;
         const saved = new CivilStatus(last_name, first_name, birthplace, birthday, 2);
         expect(saved).toHaveProperty('id');
@@ -57,10 +57,10 @@ describe('CivilStatusService', () => {
 
     it('updateCivilStatus appelle update et retourne l\'état civil mis à jour', async () => {
         const sample: CivilStatus[] = [
-            new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026"), 0),
-            new CivilStatus("Doe", "Jane", "Alès", new Date("13/01/2026"), 1),
+            new CivilStatus("Doe", "John", "Tours", "12/01/2026", 0),
+            new CivilStatus("Doe", "Jane", "Alès","13/01/2026", 1),
         ];
-        const input = new CivilStatus("Doe", "Johnathan", "Toulon", new Date("12/01/2026"), 0);
+        const input = new CivilStatus("Doe", "Johnathan", "Toulon", "12/01/2026", 0);
 
         mockRepo.findAll.mockResolvedValue(sample);
         mockRepo.update.mockResolvedValue(input);
@@ -72,8 +72,8 @@ describe('CivilStatusService', () => {
 
     it('deleteCivilStatus appelle delete et retourne l\'état civil supprimé', async () => {
         const sample: CivilStatus[] = [
-            new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026"), 0),
-            new CivilStatus("Doe", "Jane", "Alès", new Date("13/01/2026"), 1),
+            new CivilStatus("Doe", "John", "Tours", "12/01/2026", 0),
+            new CivilStatus("Doe", "Jane", "Alès", "13/01/2026", 1),
         ];
         mockRepo.findAll.mockResolvedValue(sample);
         mockRepo.delete.mockResolvedValue(sample[1]);
@@ -85,8 +85,8 @@ describe('CivilStatusService', () => {
 
     it('deleteCivilStatus retourne null si l\'état civil n\'existe pas', async () => {
         const sample: CivilStatus[] = [
-            new CivilStatus("Doe", "John", "Tours", new Date("12/01/2026"), 0),
-            new CivilStatus("Doe", "Jane", "Alès", new Date("13/01/2026"), 1),
+            new CivilStatus("Doe", "John", "Tours","12/01/2026", 0),
+            new CivilStatus("Doe", "Jane", "Alès","13/01/2026", 1),
         ];
         mockRepo.findAll.mockResolvedValue(sample);
         mockRepo.delete.mockResolvedValue(null);
