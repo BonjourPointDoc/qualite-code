@@ -1,7 +1,6 @@
 import express from 'express';
 import * as YAML from 'yaml';
 import swaggerUi from 'swagger-ui-express';
-import path from 'path';
 import * as fs from "node:fs";
 import civilStatusController from "./adapters/driving/civilStatusController";
 import professionalDataController from "./adapters/driving/professionalDataController";

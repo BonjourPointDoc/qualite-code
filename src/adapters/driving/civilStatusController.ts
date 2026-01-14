@@ -23,33 +23,34 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-    const { last_name, first_name, birthplace, birthday } = req.body;
-    if (!last_name || !first_name || !birthplace || !birthday) {
+    const { id, last_name, first_name, birthplace, birthday } = req.body;
+    if (last_name===undefined || first_name===undefined || birthplace===undefined || birthday===undefined) {
         return res.status(400).json({ message: 'last_name, first_name, birthplace and birthday required' });
     }
-    const updated = await service.updateCivilStatus(new CivilStatus(last_name, first_name, birthplace, birthday));
+    const updated = await service.updateCivilStatus(new CivilStatus(last_name, first_name, birthplace, birthday, id));
+
     res.status(201).json(updated);
 });
 
 router.delete('/:id', async (req, res) => {
     const id = Number.parseInt(req.params.id);
     const found = await service.deleteCivilStatus(id);
-    if (!found) return res.status(404).json({ message: 'Not found' });
+    if (found === null) return res.status(404).json({ message: 'Not found' });
     res.json(found);
 });
 
 router.get('/:id', async (req, res) => {
     const id = Number.parseInt(req.params.id);
     const found = await service.getCivilStatus(id);
-    if (!found) return res.status(404).json({ message: 'Not found' });
+    if (found === null) return res.status(404).json({ message: 'Not found' });
     res.json(found);
 });
 
-router.get('/how-much/:id', async (req, res) => {
-    const id = Number.parseInt(req.params.id);
-    const found = await service.getWorthOfCivilStatus(id);
-    if (!found) return res.status(404).json({ message: 'Not found' });
-    res.json(found);
-});
+// router.get('/how-much/:id', async (req, res) => {
+//     const id = Number.parseInt(req.params.id);
+//     const found = await service.getWorthOfCivilStatus(id);
+//     if (!found) return res.status(404).json({ message: 'Not found' });
+//     res.json(found);
+// });
 
 export default router;
