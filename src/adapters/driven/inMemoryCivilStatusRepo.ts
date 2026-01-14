@@ -16,10 +16,10 @@ class InMemoryCivilStatusRepo implements CivilStatusRepositoryPort {
     async save(civilStatus: Omit<CivilStatus, 'id'>): Promise<CivilStatus> {
         const newCivilStatus:CivilStatus = new CivilStatus(
             civilStatus.last_name,
-                civilStatus.first_name,
-                civilStatus.birthplace,
-                civilStatus.birthday,
-                store.length
+            civilStatus.first_name,
+            civilStatus.birthplace,
+            civilStatus.birthday,
+            store.length
         );
         store.push(newCivilStatus);
         return newCivilStatus;

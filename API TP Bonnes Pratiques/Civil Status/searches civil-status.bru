@@ -1,0 +1,129 @@
+meta {
+  name: searches civil-status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/civil-status/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 0
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
+tests {
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("result should be an array", function (){
+    expect(res.getBody()).to.be.an("object");
+  });
+  
+  test("should not return server error", function () {
+    expect(res.getStatus()).to.not.equal(500);
+  });
+}
+
+example {
+  name: 200 Response
+  description: return results found
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: GET
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 0,
+            "last_name": "",
+            "first_name": "",
+            "birthplace": "",
+            "birthday": ""
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: object not found
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: GET
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 500 Response
+  description: internal server error
+  
+  request: {
+    url: {{baseUrl}}/civil-status/:id
+    method: GET
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 500
+      text: Internal Server Error
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

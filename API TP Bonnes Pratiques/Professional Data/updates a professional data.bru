@@ -1,0 +1,149 @@
+meta {
+  name: updates a professional data
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/pro-data
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 0,
+    "civil_status_id": 0,
+    "situation": "",
+    "company": "",
+    "salary": 0,
+    "contract": "",
+    "hours_per_day": 0,
+    "overtime": 0,
+    "paid_overtime": 0
+  }
+}
+
+tests {
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+   
+  test("should not return server error", function () {
+    expect(res.getStatus()).to.not.equal(500);
+  });
+}
+
+example {
+  name: 201 Response
+  description: professional data updated
+  
+  request: {
+    url: {{baseUrl}}/pro-data
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "id": 0,
+        "civil_status_id": 0,
+        "situation": "",
+        "company": "",
+        "salary": 0,
+        "contract": "",
+        "hours_per_day": 0,
+        "overtime": 0,
+        "paid_overtime": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: invalid input, object invalid
+  
+  request: {
+    url: {{baseUrl}}/pro-data
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "id": 0,
+        "civil_status_id": 0,
+        "situation": "",
+        "company": "",
+        "salary": 0,
+        "contract": "",
+        "hours_per_day": 0,
+        "overtime": 0,
+        "paid_overtime": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: the professional data does not exists
+  
+  request: {
+    url: {{baseUrl}}/pro-data
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "id": 0,
+        "civil_status_id": 0,
+        "situation": "",
+        "company": "",
+        "salary": 0,
+        "contract": "",
+        "hours_per_day": 0,
+        "overtime": 0,
+        "paid_overtime": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

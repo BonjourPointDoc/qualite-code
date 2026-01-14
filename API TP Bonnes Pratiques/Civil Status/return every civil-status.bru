@@ -1,0 +1,91 @@
+meta {
+  name: return every civil-status
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/civil-status
+  body: none
+  auth: inherit
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
+tests {
+  test("should return success", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("result should be an array", function (){
+    expect(res.getBody()).to.be.an("array");
+  });
+  
+  test("should not return server error", function () {
+    expect(res.getStatus()).to.not.equal(500);
+  });
+}
+
+example {
+  name: 200 Response
+  description: return results found
+  
+  request: {
+    url: {{baseUrl}}/civil-status
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "id": 0,
+            "last_name": "",
+            "first_name": "",
+            "birthplace": "",
+            "birthday": ""
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 500 Response
+  description: internal server error
+  
+  request: {
+    url: {{baseUrl}}/civil-status
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 500
+      text: Internal Server Error
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
