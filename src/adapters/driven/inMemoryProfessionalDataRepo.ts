@@ -1,6 +1,7 @@
 import { ProfessionalDataRepositoryPort} from '../../ports/driven/repoPort';
 import {ProfessionalData} from "../../domain/professionalData";
 import {randomInt} from "node:crypto";
+import {ProfessionalDataService} from "../../services/professionalDataService";
 
 const store: ProfessionalData[] = [];
 
@@ -14,13 +15,24 @@ export class InMemoryProfessionalDataRepo implements ProfessionalDataRepositoryP
         return found ?? null;
     }
 
-    async save(civilStatus: Omit<ProfessionalData, 'id'>): Promise<ProfessionalData> {
-        const newCivilStatus: ProfessionalData = { id: store.length, ...civilStatus };
-        store.push(newCivilStatus);
-        return newCivilStatus;
+    async save(professionalData: Omit<ProfessionalData, 'id'>): Promise<ProfessionalData> {
+        const newProfessionalData:ProfessionalData = new ProfessionalData(
+            professionalData.civil_status_id as number,
+            professionalData.situation,
+            professionalData.company,
+            professionalData.salary,
+            professionalData.contract,
+            professionalData.hours_per_day,
+            professionalData.overtime,
+            professionalData.paid_overtime,
+            store.length
+        )
+        store.push(newProfessionalData);
+        return newProfessionalData;
     }
 
     async update(professionalData: ProfessionalData): Promise<ProfessionalData | null> {
+        console.log(professionalData);
         const foundIndex = store.findIndex(x => x.id === professionalData.id);
         if (foundIndex > -1) {
             store[foundIndex] = professionalData;

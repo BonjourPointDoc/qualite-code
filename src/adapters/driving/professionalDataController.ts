@@ -23,11 +23,11 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-    const { civil_status_id, situation, company, salary, contract, hours_per_day, overtime, paid_overtime  } = req.body;
+    const { civil_status_id, situation, company, salary, contract, hours_per_day, overtime, paid_overtime, id  } = req.body;
     if (civil_status_id === undefined || situation === undefined || company === undefined || salary === undefined || contract === undefined || hours_per_day === undefined || overtime === undefined || paid_overtime === undefined) {
         return res.status(400).json({ message: ' civil_status_id, situation, company, salary, contract, hours_per_day, overtime and paid_overtime required' });
     }
-    const updated = await service.updateProfessionalData(new ProfessionalData(civil_status_id, situation, company, salary, contract, hours_per_day, overtime, paid_overtime));
+    const updated = await service.updateProfessionalData(new ProfessionalData(civil_status_id, situation, company, salary, contract, hours_per_day, overtime, paid_overtime, id));
     res.status(201).json(updated);
 });
 
@@ -39,11 +39,15 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+    console.log("1")
     const id = Number.parseInt(req.params.id);
+    console.log("2")
     const found = await service.getProfessionalData(id);
+    console.log("3")
     if (found === null) {
-        return res.status(404).json({ message: 'Not found' });
+        return res.status(404).json({message: 'Not found'});
     }
+    console.log("4")
     res.json(found);
 });
 
