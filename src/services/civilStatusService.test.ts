@@ -7,7 +7,7 @@ describe('CivilStatusService', () => {
         findById: jest.Mock<Promise<CivilStatus | null>, [number]>;
         save: jest.Mock<Promise<CivilStatus>, [Omit<CivilStatus, 'id'>]>;
         update: jest.Mock<Promise<CivilStatus>, [CivilStatus]>;
-        delete: jest.Mock<Promise<CivilStatus | null>, [number]>;
+        delete: jest.Mock<Promise<number | null>, [number]>;
     };
     let service: CivilStatusService;
 
@@ -76,9 +76,9 @@ describe('CivilStatusService', () => {
             new CivilStatus("Doe", "Jane", "Alès", "13/01/2026", 1),
         ];
         mockRepo.findAll.mockResolvedValue(sample);
-        mockRepo.delete.mockResolvedValue(sample[1]);
+        mockRepo.delete.mockResolvedValue(1);
 
-        await expect(service.deleteCivilStatus(1)).resolves.toEqual(sample[1]);
+        await expect(service.deleteCivilStatus(1)).resolves.toEqual(1);
         expect(mockRepo.delete).toHaveBeenCalledTimes(1);
         expect(mockRepo.delete).toHaveBeenCalledWith(1);
     });

@@ -17,7 +17,7 @@ class CivilStatusRepo implements CivilStatusRepositoryPort {
 
     async findById(id: number): Promise<CivilStatus | null> {
         return new Promise((resolve, reject) => {
-            db.all('SELECT * FROM CivilStatus where id=(?)',id, (err:any, rows:any) => {
+            db.get('SELECT * FROM CivilStatus where id=(?)',id, (err:any, rows:any) => {
                 if(err)
                     reject(err);
                 else
@@ -30,8 +30,7 @@ class CivilStatusRepo implements CivilStatusRepositoryPort {
         let returnValue:CivilStatus = civilStatus;
         return new Promise((resolve, reject) => {
             db.run(
-                `INSERT INTO CivilStatus (last_name, first_name, birthplace, birthday)
-                 VALUES (?, ?, ?, ?)`,
+                `INSERT INTO CivilStatus (last_name, first_name, birthplace, birthday) VALUES (?, ?, ?, ?)`,
                 [
                     civilStatus.last_name,
                     civilStatus.first_name,
@@ -54,22 +53,22 @@ class CivilStatusRepo implements CivilStatusRepositoryPort {
         return new Promise((resolve, reject) => {
             db.run('UPDATE CivilStatus SET last_name = (?), first_name = (?), birthplace = (?), birthday = (?) where id = (?)',
                 [newCivilStatus.last_name, newCivilStatus.first_name, newCivilStatus.birthplace, newCivilStatus.birthday, newCivilStatus.id],
-                (err:any, rows:any) => {
+                (err:any) => {
                 if(err)
                     reject(err);
                 else
-                    resolve(rows);
+                    resolve(newCivilStatus);
             });
-        });
+        })
     }
 
-    async delete(id: number): Promise<CivilStatus | null> {
+    async delete(id: number): Promise<number | null> {
         return new Promise((resolve, reject) => {
-            db.run('DELETE FROM CivilStatus WHERE id = (?)', id, (err:any, rows:any) => {
+            db.run('DELETE FROM CivilStatus WHERE id = (?)', id, (err:any) => {
                 if(err)
                     reject(err);
                 else
-                    resolve(rows);
+                    resolve(id);
             });
         });
     }

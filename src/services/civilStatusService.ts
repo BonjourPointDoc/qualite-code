@@ -22,7 +22,7 @@ export class CivilStatusService implements CivilStatusPort {
         return this.repo.update(input);
     }
 
-    async deleteCivilStatus(id: number): Promise<CivilStatus | null> {
+    async deleteCivilStatus(id: number): Promise<number | null> {
         return this.repo.delete(id);
     }
 
