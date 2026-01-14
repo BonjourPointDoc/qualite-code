@@ -1,11 +1,11 @@
 import express from 'express';
-import { InMemoryProfessionalDataRepo } from '../driven/inMemoryProfessionalDataRepo';
+import { ProfessionalDataRepo } from '../driven/professionalStatusRepo';
 import { ProfessionalDataService } from '../../services/professionalDataService';
 import { ProfessionalData } from "../../domain/professionalData";
 
 const router = express.Router();
 
-const repo = new InMemoryProfessionalDataRepo();
+const repo = new ProfessionalDataRepo();
 const service = new ProfessionalDataService(repo);
 
 router.get('/', async (req, res) => {

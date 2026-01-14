@@ -1,9 +1,9 @@
 import { CivilStatusService } from '../../services/civilStatusService';
-import InMemoryCivilStatusRepo from "../../adapters/driven/inMemoryCivilStatusRepo";
+import CivilStatusRepo from "../../adapters/driven/civilStatusRepo";
 import {CivilStatus} from "../../domain/civilStatus";
 
 describe('CivilStatus Integration Test', () => {
-    let repo:InMemoryCivilStatusRepo = new InMemoryCivilStatusRepo();
+    let repo:CivilStatusRepo = new CivilStatusRepo();
     let service: CivilStatusService = new CivilStatusService(repo);
     const birthday = new Date('12/01/2026')
 

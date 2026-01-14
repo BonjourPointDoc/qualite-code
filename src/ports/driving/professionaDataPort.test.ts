@@ -1,9 +1,9 @@
-import { InMemoryProfessionalDataRepo } from '../../adapters/driven/inMemoryProfessionalDataRepo';
+import { ProfessionalDataRepo } from '../../adapters/driven/professionalStatusRepo';
 import { ProfessionalDataService } from '../../services/professionalDataService';
 import {ProfessionalData} from "../../domain/professionalData";
 
 describe('ProfessionalDataService', () => {
-    const repo = new InMemoryProfessionalDataRepo();
+    const repo = new ProfessionalDataRepo();
     const service = new ProfessionalDataService(repo);
 
     it('createProfessionalDataService ', async () => {
